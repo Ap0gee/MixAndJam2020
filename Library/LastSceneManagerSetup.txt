@@ -1,0 +1,4 @@
+sceneSetups:
+- path: C:/Users/Sjsho/Desktop/prototypes/potions/Assets/Standard Assets/Medieval_Gold/Scene/Nedieval_gold.unity
+  isLoaded: 1
+  isActive: 1
