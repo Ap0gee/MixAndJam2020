@@ -6,20 +6,18 @@ using System.Collections.Generic;
 
 namespace GameJam {
 
-    [RequireComponent(typeof(ThirdPersonController))]
+    [RequireComponent(typeof(ControllerPlayer))]
     public class InteractsWithObjects : MonoBehaviour
     {
-        private ThirdPersonController m_thirdPersonController;
-        [SerializeField]
-        public Sprite onFocusCrosshairSprite;
-        private int m_layerMask = 1 << 9; // interactable
+        private ControllerPlayer m_playerController;
+        private int m_layerMask = 1 << 11; // interactable
         public float m_interationReach = 3f;
         private bool m_hasFocusObject = false;
         private Interactable m_focusObject;
 
         void Awake()
         {
-            m_thirdPersonController = gameObject.GetComponent<ThirdPersonController>();
+            m_playerController = gameObject.GetComponent<ControllerPlayer>();
         }
 
         // Start is called before the first frame update
@@ -29,10 +27,11 @@ namespace GameJam {
 
         private void FixedUpdate()
         {
-            Vector3 rayOrigin = m_thirdPersonController.gameObject.transform.position;
-            Vector3 direction = m_thirdPersonController.gameObject.transform.TransformDirection(Vector3.forward);
+            Vector3 rayOrigin = m_playerController.gameObject.transform.position;
+            Vector3 direction = m_playerController.gameObject.transform.TransformDirection(Vector3.forward);
 
             Ray ray = new Ray(rayOrigin, direction);
+
             Debug.DrawRay(ray.origin, m_interationReach * ray.direction, Color.red);
 
             RaycastHit hit;

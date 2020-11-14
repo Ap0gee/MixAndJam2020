@@ -12,10 +12,7 @@ namespace GameJam
 {
     public class ActionController : MonoBehaviour
     {
-        [SerializeField] private Image m_background;
-        [SerializeField] private TMP_Text m_text;
         [SerializeField] private Image m_slot;
-        [SerializeField] private Image m_icon;
 
         [SerializeField]
         private SOAction m_action;
@@ -50,34 +47,10 @@ namespace GameJam
             set { transform.localScale = value; }
         }
 
-        public Vector3 LocalBackgroundPos
-        {
-            get { return m_background.transform.localPosition; }
-            set { m_background.transform.localPosition = value; }
-        }
-
-        public float BackgroundFill
-        {
-            get { return m_background.fillAmount; }
-            set { m_background.fillAmount = value; }
-        }
-
-        public string Text
-        {
-            get { return m_text.text; }
-            set { m_text.text = value; }
-        }
-
         public float SlotFill
         {
             get { return m_slot.fillAmount; }
             set { m_slot.fillAmount = value >= 1f ? 1f : value; }
-        }
-
-        public Sprite Icon
-        {
-            get { return m_icon.sprite; }
-            set { m_icon.sprite = value; }
         }
 
         public UnityEvent CallbackEvent
@@ -90,36 +63,16 @@ namespace GameJam
 
         public float CallbackDelay { get; set; }
 
-        protected ActionController()
-        {
-
-        }
-
         private void Awake()
         {
             m_menuInteraction = UIManager.UI.MenusController.MenuInteraction;
-            m_backgroundRect = m_background.transform.GetComponent<RectTransform>();
-            m_backgroundTweenPos = m_backgroundRect.anchoredPosition;
         }
 
         void OnEnable()
         {
-            LocalScale = new Vector3(1, 1, 1);
-            ResetFillValues();
+            ShouldListenForInput(true);
+            SlotFill = 0f;
             CallbackDelay = m_action.actionCallbackDelay;
-        }
-
-        public void OnTweenChange(float value)
-        {
-            float fill = 1 / m_action.tweenTarget * value;
-
-            m_backgroundTweenPos.x = value;
-            m_backgroundRect.anchoredPosition = m_backgroundTweenPos;
-
-            if (fill > m_action.backgroundStartFill)
-            {
-                BackgroundFill = fill;
-            }
         }
 
         public void ShouldListenForInput(bool shouldListen)
@@ -127,13 +80,9 @@ namespace GameJam
             m_listenForInput = shouldListen;
         }
 
-        public void ResetFillValues() {
-            BackgroundFill = m_action.backgroundStartFill;
-            SlotFill = 0f;
-        }
-
         public void Update()
         {
+            Debug.Log(InputManager.GetButton(CallbackKey));
             if (m_listenForInput)
             {
                 if (InputManager.GetButton(CallbackKey)) {
@@ -146,7 +95,7 @@ namespace GameJam
                 if (SlotFill == 1f) {
                     ShouldListenForInput(false);
                     m_menuInteraction.Hide(true);
-                    ResetFillValues();
+                    SlotFill = 0f;
                     CallbackEvent.Invoke();
                 }
             }
