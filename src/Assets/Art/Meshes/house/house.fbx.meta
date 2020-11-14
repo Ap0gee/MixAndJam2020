@@ -3,7 +3,32 @@ guid: 4ec6453746c727141870b5a3a4cd6001
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture_ceiling
+    second: {fileID: 2100000, guid: 267445a5435d044448378a284d13b6e4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture_exterior
+    second: {fileID: 2100000, guid: 8d5caa1e1fb4ae845b9386e2e56f4ee1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture_floor
+    second: {fileID: 2100000, guid: bf49a65435c172e4185ef30836604e49, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture_interior
+    second: {fileID: 2100000, guid: d25ba5cf6d31937469c119420e6b2c16, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture_wall_top
+    second: {fileID: 2100000, guid: 6ba6d812d64df964abaa21085d594f8d, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
