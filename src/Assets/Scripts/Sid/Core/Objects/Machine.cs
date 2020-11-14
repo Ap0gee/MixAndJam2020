@@ -5,26 +5,15 @@ using System;
 
 namespace GameJam
 {
-    [Serializable]
-    enum MachineTypes
-    {
-        Fabricator,
-        Mill,
-        Extruder,
-        Press,
-        Forge,
-        Mining,
-        PickNPlace
-    }
-
-    public class Machine : MonoBehaviour
+    public class Machine : Interactable, IUseable
     {
         [SerializeField]
-        private MachineTypes m_type;
+        private List<Item> m_producablePrefabs = new List<Item>();
 
-        MachineTypes Type
+        public virtual void Use()
         {
-            get { return m_type; }
+            Debug.Log("using machine.");
         }
+        public virtual void UnUse() { }
     }
 }

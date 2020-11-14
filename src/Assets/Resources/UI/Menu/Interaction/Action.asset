@@ -12,8 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d57e118f3c1bc42a752f7bd63b89a3, type: 3}
   m_Name: Action
   m_EditorClassIdentifier: 
-  tweenDuration: 0.3
-  tweenStart: 100
-  tweenTarget: 360
   actionCallbackDelay: 0.5
-  backgroundStartFill: 0.375

@@ -20,8 +20,7 @@ namespace GameJam
     public enum ActionTypes
     {
         ActionConfirmUse,
-        ActionConfirmPickup,
-        ActionAction1Inspect
+        ActionConfirmPickup
     }
 
     [Serializable]
@@ -43,8 +42,7 @@ namespace GameJam
         [SerializeField]
         private GridLayoutGroup m_inactiveActionsGroup;
 
-        [SerializeField]
-        private Image m_icon;
+        private CanvasGroup m_canvasGroup;
 
         [SerializeField]
         private List<ActionController> m_actionPrefabs = new List<ActionController>();
@@ -56,14 +54,10 @@ namespace GameJam
         public ActionController[] Actions { get { return m_actionsMap.Values.ToArray(); } }
 
         public ActionController[] ActiveActions { get { return m_activeActions.ToArray(); } }
-
-        public Sprite Icon {
-            get { return m_icon.sprite; }
-            set { m_icon.sprite = value; m_icon.preserveAspect = true; }
-        }
             
         private void Awake()
         {
+            m_canvasGroup = GetComponent<CanvasGroup>();
             RegisterActions();
             Show(true);
             InitializeActions();
@@ -72,12 +66,12 @@ namespace GameJam
       
         public void Show(bool instant=false)
         {
-            
+            m_canvasGroup.alpha = 1f;
         }
 
         public void Hide(bool instant=false)
         {
-           
+            m_canvasGroup.alpha = 0f;
         }
 
         private void RegisterActions()
