@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class RotatingScript : MonoBehaviour
 {
-    public GameObject TargetObject;
-    public int CameraArmLength;
+
+    public Vector3 RotateSpeed = new Vector3(0, 0, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +16,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        this.transform.Rotate(RotateSpeed); //applying rotation
     }
 }
