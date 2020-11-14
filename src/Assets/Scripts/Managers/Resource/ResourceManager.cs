@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using HighlightPlus;
 
 namespace GameJam.Managers
 {
@@ -10,14 +9,6 @@ namespace GameJam.Managers
     public class ResourceManager : MonoBehaviour
     {
         public static ResourceManager instance;
-
-        [SerializeField]
-        private HighlightProfile m_globalHighlightProfile;
-
-        public static HighlightProfile GlobalHighlightProfile
-        {
-            get { return instance.m_globalHighlightProfile; }
-        }
 
 #if UNITY_EDITOR
         void Awake()

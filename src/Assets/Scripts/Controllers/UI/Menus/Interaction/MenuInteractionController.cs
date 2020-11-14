@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DuloGames.UI;
-using DuloGames.UI.Tweens;
 using System;
 using TMPro;
 using System.Linq;
@@ -33,7 +31,6 @@ namespace GameJam
         public UnityEvent callbackEvent;
     }
 
-    [RequireComponent(typeof(UIWindow))]
     [DisallowMultipleComponent]
     public class MenuInteractionController : MonoBehaviour
     {
@@ -48,9 +45,6 @@ namespace GameJam
 
         [SerializeField]
         private Image m_icon;
-
-        [System.NonSerialized]
-        private UIWindow m_window;
 
         [SerializeField]
         private List<ActionController> m_actionPrefabs = new List<ActionController>();
@@ -70,34 +64,20 @@ namespace GameJam
             
         private void Awake()
         {
-            m_window = gameObject.GetComponent<UIWindow>();
-            m_window.onTransitionBegin.AddListener(OnTransitionBegin);
             RegisterActions();
             Show(true);
             InitializeActions();
             Hide(true);
         }
-
-        private void OnTransitionBegin(UIWindow window, UIWindow.VisualState state, bool instant)
-        {
-            if (state == UIWindow.VisualState.Shown) {
-
-                foreach (ActionController action in ActiveActions)
-                {
-                    action.StartTween(true);
-                    action.ShouldListenForInput(true);
-                }
-            }
-        }
-
+      
         public void Show(bool instant=false)
         {
-            m_window.Show(instant);
+            
         }
 
         public void Hide(bool instant=false)
         {
-            m_window.Hide(instant);
+           
         }
 
         private void RegisterActions()

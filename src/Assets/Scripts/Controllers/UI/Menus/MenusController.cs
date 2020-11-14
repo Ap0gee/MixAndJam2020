@@ -6,7 +6,6 @@ namespace GameJam
 {
     public class MenusController : MonoBehaviour
     {
-
         [SerializeField]
         private MenuInteractionController m_menuInteraction;
 

@@ -13,5 +13,13 @@ namespace GameJam
         {
             get { return m_menusController; }
         }
+
+        [SerializeField]
+        private MenuInteractionController m_menuInteraction;
+
+        public MenuInteractionController MenuInteraction
+        {
+            get { return m_menuInteraction; }
+        }
     }
 }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using DuloGames.UI;
-using DuloGames.UI.Tweens;
 using TMPro;
 using System;
 using GameJam.Managers;
@@ -14,12 +12,10 @@ namespace GameJam
 {
     public class ActionController : MonoBehaviour
     {
-        [SerializeField] private UIProgressBar m_background;
+        [SerializeField] private Image m_background;
         [SerializeField] private TMP_Text m_text;
-        [SerializeField] private UIProgressBar m_slot;
+        [SerializeField] private Image m_slot;
         [SerializeField] private Image m_icon;
-        [SerializeField] private TweenEasing m_TransitionEasing = TweenEasing.InOutQuint;
-        [NonSerialized] private readonly TweenRunner<FloatTween> m_FloatTweenRunner;
 
         [SerializeField]
         private SOAction m_action;
@@ -96,9 +92,7 @@ namespace GameJam
 
         protected ActionController()
         {
-            if (m_FloatTweenRunner == null)
-                m_FloatTweenRunner = new TweenRunner<FloatTween>();
-            m_FloatTweenRunner.Init(this);
+
         }
 
         private void Awake()
@@ -126,16 +120,6 @@ namespace GameJam
             {
                 BackgroundFill = fill;
             }
-        }
-
-        public void StartTween(bool ignoreTimeScale)
-        {
-            ResetFillValues();
-            var floatTween = new FloatTween { duration = m_action.tweenDuration, startFloat = m_action.tweenStart, targetFloat = m_action.tweenTarget };
-            floatTween.AddOnChangedCallback(OnTweenChange);
-            floatTween.ignoreTimeScale = ignoreTimeScale;
-            floatTween.easing = m_TransitionEasing;
-            m_FloatTweenRunner.StartTween(floatTween);
         }
 
         public void ShouldListenForInput(bool shouldListen)
