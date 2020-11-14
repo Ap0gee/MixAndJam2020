@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_nextScene: Splash
+  m_loadingOverlay: {fileID: 0}
 --- !u!4 &893069714
 Transform:
   m_ObjectHideFlags: 0
