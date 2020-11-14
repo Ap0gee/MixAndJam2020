@@ -1,173 +1,80 @@
 ﻿//#define LOG_TRACE_INFO
 
 using UnityEngine;
-using GameJam.Core.State;
-using GameJam.Managers._Scene.States;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace GameJam.Managers {
 
     public class SceneStateManager : MonoBehaviour
     {
-        private static SceneStateManager instance;
-
-        private FiniteStateMachine stateMachine;
-
-        private readonly SceneState sceneState;
+        public static SceneStateManager instance;
 
         [SerializeField]
-        private string nextScene;
+        private string m_nextScene;
 
-        private string currentScene;
+        private string m_currentScene;
 
-        private AsyncOperation taskResourceUnload;
+        private AsyncOperation m_taskResourceUnload;
 
-        private AsyncOperation taskSceneLoad;
+        private AsyncOperation m_taskSceneLoad;
 
-        private static FiniteStateMachine StateMachine
+        [SerializeField]
+        private Image m_loadingOverlay;
+
+        private bool m_switching = false;
+
+        private static bool Switching
         {
-            get { return instance.stateMachine; }
-            set { instance.stateMachine = value; }
+            get { return instance.m_switching; }
+            set { instance.m_switching = value; }
         }
-
-        private static AsyncOperation TaskResourceUnload
-        {
-            get { return instance.taskResourceUnload; }
-            set { instance.taskResourceUnload = value; }
-        }
-
-        private static AsyncOperation TaskSceneLoad
-        {
-            get { return instance.taskSceneLoad; }
-            set { instance.taskSceneLoad = value; }
-        }
-
-        private static string NextScene
-        {
-            get { return instance.nextScene; }
-            set { instance.nextScene = value; }
-        }
-
-        private static string CurrentScene
-        {
-            get { return instance.currentScene; }
-            set { instance.currentScene = value; }
-        }
-
-        public enum SceneState
-        {
-            Reset,
-            Preload,
-            Load,
-            Unload,
-            Postload,
-            Ready,
-            Run,
-            Count
-        };
-
-        public struct EventNames
-        {
-            public static string LoadNextScene
-            {
-                get { return "SceneStateManager.LoadNextScene"; }
-            }
-            public static string UnloadUnusedAssets
-            {
-                get { return "SceneStateManager.UnloadUnusedAssets"; }
-            }
-            public static string FinalizeSceneSwitch
-            {
-                get { return "SceneStateManager.FinalizeSceneSwitch"; }
-            }
-        };
 
         public static bool IsDoneLoading
         {
-            get { return TaskSceneLoad != null ? TaskSceneLoad.isDone : true; }
+            get { return instance.m_taskSceneLoad.isDone; }
         }
 
         public static bool IsDoneUnloading
         {
-            get { return TaskSceneLoad != null ? TaskResourceUnload.isDone : true; }
+            get { return instance.m_taskResourceUnload.isDone; }
         }
 
-        public static bool IsResetReady
+        private static void LoadNextScene()
         {
-            get { return CurrentScene != NextScene; }
+            instance.m_taskSceneLoad = SceneManager.LoadSceneAsync(instance.m_nextScene);
         }
 
-        private void LoadNextScene()
+        private static void UnloadUnusedAssets()
         {
-            if (NextScene != null)
-            {
-                TaskSceneLoad = SceneManager.LoadSceneAsync(NextScene);
-            }
+            instance.m_taskResourceUnload = Resources.UnloadUnusedAssets();
         }
 
-        private void UnloadUnusedAssets()
+        private static bool ReadyToSwitch
         {
-            if (TaskResourceUnload == null)
-            {
-                TaskResourceUnload = Resources.UnloadUnusedAssets();
-            }
-        }
-
-        private void FinalizeSceneSwitch()
-        {
-            CurrentScene = NextScene;
+            get { return instance.m_nextScene != instance.m_currentScene && instance.m_nextScene != null; }
         }
 
         public static void SwitchScene(string scene)
         {
-            if (CurrentScene != scene)
+            if (instance.m_currentScene != scene)
             {
-                NextScene = scene;
+                instance.m_nextScene = scene;
             }   
         }
 
         public static void ReloadScene()
         { 
-            if (CurrentScene != null)
+            if (instance.m_currentScene != null)
             {
-                NextScene = CurrentScene;
-                CurrentScene += "#";
+                instance.m_nextScene = instance.m_currentScene;
+                instance.m_currentScene += "#";
             }   
         }
 
-        private void HookEvents()
+        void Awake()
         {
-            EventManager.StartListening(EventNames.LoadNextScene, LoadNextScene);
-            EventManager.StartListening(EventNames.UnloadUnusedAssets, UnloadUnusedAssets);
-            EventManager.StartListening(EventNames.FinalizeSceneSwitch, FinalizeSceneSwitch);
-        }
-
-        private void UnhookEvents()
-        {
-            EventManager.StopListening(EventNames.LoadNextScene, LoadNextScene);
-            EventManager.StopListening(EventNames.UnloadUnusedAssets, UnloadUnusedAssets);
-            EventManager.StopListening(EventNames.FinalizeSceneSwitch, FinalizeSceneSwitch);
-        }
-
-        private void Start()
-        {
-            StateMachine = new FiniteStateMachine();
-
-            StateMachine.AddState((int)SceneState.Reset, new Reset(StateMachine));
-            StateMachine.AddState((int)SceneState.Preload, new Preload(StateMachine));
-            StateMachine.AddState((int)SceneState.Load, new Load(StateMachine));
-            StateMachine.AddState((int)SceneState.Unload, new Unload(StateMachine));
-            StateMachine.AddState((int)SceneState.Postload, new PostLoad(StateMachine));
-            StateMachine.AddState((int)SceneState.Ready, new Ready(StateMachine));
-            StateMachine.AddState((int)SceneState.Run, new Run(StateMachine));
-
-            State nextState = StateMachine.GetState((int)SceneState.Reset);
-            StateMachine.SetState(nextState);
-        }
-
-        private void Awake()
-        {
-            Object.DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
 
             if (instance == null)
             {
@@ -179,17 +86,7 @@ namespace GameJam.Managers {
             }  
         }
 
-        private void OnEnable()
-        {
-            HookEvents();
-        }
-
-        private void OnDisable()
-        {
-            UnhookEvents();
-        }
-
-        private void OnDestroy()
+        void OnDestroy()
         {
             if (instance != null)
             {
@@ -199,7 +96,29 @@ namespace GameJam.Managers {
 
         private void Update()
         {
-            StateMachine?.Update();
+            if (instance)
+            {
+                if (ReadyToSwitch && !Switching)
+                {
+                    Switching = true;
+                    UnloadUnusedAssets();
+                    LoadNextScene();
+                }
+
+                if (Switching)
+                {
+                    if (!instance.m_taskSceneLoad.isDone)
+                    {
+                        //show loading screen
+                    }
+                    else
+                    {
+                        //hide loading screen
+                        instance.m_currentScene = instance.m_nextScene;
+                        Switching = false;
+                    }
+                }
+            }
         }
     }
 }

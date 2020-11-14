@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using GameJam.Managers._Input.States;
 using GameJam.Core.State;
 
 namespace GameJam.Managers
@@ -11,28 +10,6 @@ namespace GameJam.Managers
         private FiniteStateMachine stateMachine;
 
         private bool isPaused = false;
-
-        private readonly InputState inputState;
-
-        [SerializeField]
-        private ThirdPersonController m_playerController;
-
-        private static ThirdPersonController PlayerController
-        {
-            get { return instance.m_playerController; }
-        } 
-
-        public enum InputState
-        {
-            Run,
-            Pause
-        }
-
-        private static FiniteStateMachine StateMachine
-        {
-            get { return instance.stateMachine; }
-            set { instance.stateMachine = value; }
-        }
 
         public static bool IsPaused
         {
@@ -115,20 +92,9 @@ namespace GameJam.Managers
             return IsPaused ? false : Input.GetMouseButtonUp(button);
         }
 
-        private void Start()
-        {
-            StateMachine = new FiniteStateMachine();
-
-            StateMachine.AddState((int)InputState.Pause, new Pause(StateMachine));
-            StateMachine.AddState((int)InputState.Run, new Run(StateMachine));
-
-            State nextState = StateMachine.GetState((int)InputState.Run);
-            StateMachine.SetState(nextState);
-        }
-
         private void Awake()
         {
-            Object.DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
 
             if (instance == null)
             {
@@ -146,11 +112,6 @@ namespace GameJam.Managers
             {
                 instance = null;
             }
-        }
-
-        private void Update()
-        {
-            StateMachine?.Update();
         }
     }
 }
