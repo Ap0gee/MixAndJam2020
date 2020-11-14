@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230886bab20558f4c936f692ef26a8fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nextScene: Splash
+  m_nextScene: Main
   m_loadingOverlay: {fileID: 0}
 --- !u!4 &893069714
 Transform:
