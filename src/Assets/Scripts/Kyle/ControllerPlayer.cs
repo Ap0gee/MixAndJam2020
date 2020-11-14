@@ -1,34 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameJam.Managers;
 
-public class ControllerPlayer : MonoBehaviour
+namespace GameJam
 {
-    public float PlayerSpeed = 1;
-    protected Rigidbody rigidbody= null;
-
-    // Start is called before the first frame update
-    void Start()
+    public class ControllerPlayer : MonoBehaviour
     {
-        this.rigidbody = this.GetComponent<Rigidbody>();
-    }
+        public float PlayerSpeed = 1;
+        protected Rigidbody rigidbody = null;
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        float axisVertical = Input.GetAxis("Vertical");
-        float axisHorizontal = Input.GetAxis("Horizontal");
+        // Start is called before the first frame update
+        void Start()
+        {
+            this.rigidbody = this.GetComponent<Rigidbody>();
+        }
 
-        Debug.Log("Vertical " + axisVertical + " Horizontal: " + axisHorizontal);
+        // Update is called once per frame
+        void FixedUpdate()
+        {
+            float axisVertical = InputManager.GetAxis("Vertical");
+            float axisHorizontal = InputManager.GetAxis("Horizontal");
 
-
-        this.transform.SetPositionAndRotation(
-            new Vector3(
-                this.transform.position.x + this.PlayerSpeed * axisHorizontal * Time.deltaTime ,
-                this.transform.position.y ,
-                this.transform.position.z + this.PlayerSpeed * axisVertical * Time.deltaTime
-            ),
-            Quaternion.identity
-        );
+            this.transform.SetPositionAndRotation(
+                new Vector3(
+                    this.transform.position.x + this.PlayerSpeed * axisHorizontal * Time.deltaTime,
+                    this.transform.position.y,
+                    this.transform.position.z + this.PlayerSpeed * axisVertical * Time.deltaTime
+                ),
+                Quaternion.identity
+            );
+        }
     }
 }
