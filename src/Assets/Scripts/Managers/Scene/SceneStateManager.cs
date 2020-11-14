@@ -15,7 +15,8 @@ namespace GameJam.Managers {
 
         private readonly SceneState sceneState;
 
-        public string nextScene;
+        [SerializeField]
+        private string nextScene;
 
         private string currentScene;
 
@@ -83,12 +84,12 @@ namespace GameJam.Managers {
 
         public static bool IsDoneLoading
         {
-            get { return TaskSceneLoad.isDone; }
+            get { return TaskSceneLoad != null ? TaskSceneLoad.isDone : true; }
         }
 
         public static bool IsDoneUnloading
         {
-            get { return TaskResourceUnload.isDone; }
+            get { return TaskSceneLoad != null ? TaskResourceUnload.isDone : true; }
         }
 
         public static bool IsResetReady
@@ -98,7 +99,10 @@ namespace GameJam.Managers {
 
         private void LoadNextScene()
         {
-            TaskSceneLoad = SceneManager.LoadSceneAsync(NextScene);
+            if (NextScene != null)
+            {
+                TaskSceneLoad = SceneManager.LoadSceneAsync(NextScene);
+            }
         }
 
         private void UnloadUnusedAssets()
