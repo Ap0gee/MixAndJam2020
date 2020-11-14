@@ -55,11 +55,6 @@ namespace GameJam.Managers
             IsPaused = !IsPaused;
         }
 
-        public static void SetPlayerControllerPaused(bool paused)
-        {
-            PlayerController.controllerPauseState = paused;
-        }
-
         public static float GetAxis(string axisName)
         {
             return IsPaused ? 0 : Input.GetAxis(axisName);

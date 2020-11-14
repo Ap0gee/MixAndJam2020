@@ -8,7 +8,6 @@ namespace GameJam.Managers._Input.States
 
         public override void Enter()
         {
-            InputManager.SetPlayerControllerPaused(false);
             base.Enter();
         }
 
