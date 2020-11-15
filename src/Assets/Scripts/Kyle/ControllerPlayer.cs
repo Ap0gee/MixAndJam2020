@@ -12,8 +12,12 @@ namespace GameJam
 
         private Item m_heldItem;
         private float m_playerSizeY;
-
         public float heldItemPos;
+
+        public Item HeldItem
+        {
+            get { return m_heldItem; }
+        }
 
         private void Awake()
         {

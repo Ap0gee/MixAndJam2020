@@ -27,6 +27,7 @@ namespace GameJam
         public enum ActionKeys
         {
             Confirm,
+            None,
             Action1,
             Action2,
             Action3

@@ -18,7 +18,7 @@ namespace GameJam
         public float heldPosOffset;
 
         [SerializeField]
-        private Image m_icon;
+        private Sprite m_icon;
 
         [SerializeField]
         private ItemTypes m_type;
