@@ -9,6 +9,7 @@ namespace GameJam
     public class ControllerPlayer : MonoBehaviour
     {
         public float PlayerSpeed = 1;
+        private float m_rotSpeed = 1000f;
         protected Rigidbody rigidbody = null;
 
         private Item m_heldItem;
@@ -38,15 +39,17 @@ namespace GameJam
         {
             float axisVertical = InputManager.GetAxis("Vertical");
             float axisHorizontal = InputManager.GetAxis("Horizontal");
-
-            this.transform.SetPositionAndRotation(
-                new Vector3(
-                    this.transform.position.x + this.PlayerSpeed * axisHorizontal * Time.deltaTime,
-                    this.transform.position.y,
-                    this.transform.position.z + this.PlayerSpeed * axisVertical * Time.deltaTime
-                ),
-                Quaternion.identity
-            );
+            if (axisVertical != 0 || axisHorizontal != 0)
+            {
+                Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+                transform.position = new Vector3(
+                        this.transform.position.x + this.PlayerSpeed * axisHorizontal * Time.deltaTime,
+                        this.transform.position.y,
+                        this.transform.position.z + this.PlayerSpeed * axisVertical * Time.deltaTime
+                    );
+                transform.rotation = Quaternion.LookRotation(moveDirection);
+            }
+           
         }
 
         public void PickupItem(Item item)
@@ -66,7 +69,7 @@ namespace GameJam
             {
                 BoxCollider collider = m_heldItem.GetComponent<BoxCollider>();
                 float sizeX = m_heldItem.GetComponent<Renderer>().bounds.size.x;
-                m_heldItem.transform.position = new Vector3(transform.position.x + sizeX, m_heldItem.YOrigin, transform.position.z);
+                m_heldItem.transform.position = transform.forward * 5f + transform.position;
                 collider.enabled = true;
                 m_heldItem.OnDropped();
                 m_heldItem = null;
