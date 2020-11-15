@@ -1305,6 +1305,20 @@ PrefabInstance:
       propertyPath: PlayerSpeed
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1172453763, guid: cf7d61b8afbbfcf4a9e32828c798d155, type: 3}
+      propertyPath: throwForce
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 630992679603280091, guid: cf7d61b8afbbfcf4a9e32828c798d155,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.9165373
+      objectReference: {fileID: 0}
+    - target: {fileID: 630992679603280091, guid: cf7d61b8afbbfcf4a9e32828c798d155,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.94173133
+      objectReference: {fileID: 0}
     - target: {fileID: 3575744002627943162, guid: cf7d61b8afbbfcf4a9e32828c798d155,
         type: 3}
       propertyPath: m_Name
@@ -1318,7 +1332,7 @@ PrefabInstance:
     - target: {fileID: 4355014534036888324, guid: cf7d61b8afbbfcf4a9e32828c798d155,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.149
       objectReference: {fileID: 0}
     - target: {fileID: 4355014534036888324, guid: cf7d61b8afbbfcf4a9e32828c798d155,
         type: 3}
@@ -1364,6 +1378,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853155187243876276, guid: cf7d61b8afbbfcf4a9e32828c798d155,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf7d61b8afbbfcf4a9e32828c798d155, type: 3}
@@ -5477,6 +5496,11 @@ PrefabInstance:
       propertyPath: m_FocusActionModels.Array.data[0].callbackEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 502158240}
+    - target: {fileID: 36508636354268159, guid: b5a25bfa2345c094f96fbf78c3140c7c,
+        type: 3}
+      propertyPath: m_FocusActionModels.Array.data[0].callbackEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PickupItem
+      objectReference: {fileID: 0}
     - target: {fileID: 507513762690546989, guid: b5a25bfa2345c094f96fbf78c3140c7c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5485,7 +5509,7 @@ PrefabInstance:
     - target: {fileID: 507513762690546989, guid: b5a25bfa2345c094f96fbf78c3140c7c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.551
+      value: 2.695
       objectReference: {fileID: 0}
     - target: {fileID: 507513762690546989, guid: b5a25bfa2345c094f96fbf78c3140c7c,
         type: 3}
@@ -5536,6 +5560,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: plate
+      objectReference: {fileID: 0}
+    - target: {fileID: 3330569824520934199, guid: b5a25bfa2345c094f96fbf78c3140c7c,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5a25bfa2345c094f96fbf78c3140c7c, type: 3}

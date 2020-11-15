@@ -11,11 +11,12 @@ namespace GameJam
         public float PlayerSpeed = 1;
         private float m_rotSpeed = 1000f;
         protected Rigidbody rigidbody = null;
-
+        [SerializeField]
+        private float m_throwForce = 500f;
         private Item m_heldItem;
         private float m_playerSizeY;
         public float heldItemPos;
-
+        public bool throwing = false;
         public UnityEvent dropItemEvent = new UnityEvent();
 
         public Item HeldItem
@@ -57,7 +58,9 @@ namespace GameJam
             m_heldItem = item;
 
             //diable collider
-            BoxCollider collider = item.GetComponent<BoxCollider>();
+            MeshCollider collider = item.GetComponent<MeshCollider>();
+            Rigidbody rb = item.GetComponent<Rigidbody>();
+            rb.isKinematic = true;
             collider.enabled = false;
             //transform object
             m_heldItem.OnGrabbed();
@@ -67,12 +70,16 @@ namespace GameJam
         {
             if (m_heldItem != null)
             {
-                BoxCollider collider = m_heldItem.GetComponent<BoxCollider>();
-                float sizeX = m_heldItem.GetComponent<Renderer>().bounds.size.x;
-                m_heldItem.transform.position = transform.forward * 5f + transform.position;
+                MeshCollider collider = m_heldItem.GetComponent<MeshCollider>();
+                Rigidbody rb = m_heldItem.GetComponent<Rigidbody>();
                 collider.enabled = true;
+                rb.isKinematic = false;
+                float sizeX = m_heldItem.GetComponent<Renderer>().bounds.size.x;
+                rb.AddForce(transform.forward * m_throwForce);
+               
+
                 m_heldItem.OnDropped();
-                m_heldItem = null;
+                
             }
         }
 
@@ -88,7 +95,7 @@ namespace GameJam
 
         private void Update()
         {
-            if (m_heldItem)
+            if (m_heldItem && !throwing)
             {
                 float itemSizeY = m_heldItem.GetComponent<Renderer>().bounds.size.y;
                 m_heldItem.transform.position = new Vector3(transform.position.x, transform.position.y + heldItemPos + m_heldItem.heldPosOffset, transform.position.z);
