@@ -75,6 +75,9 @@ namespace GameJam
 
             if (heldItem != null)
             {
+                //remove current actions for player use machines
+                m_menuInteraction.RequestActionsToLayoutGroup(heldItem.GrabActionModels, ActionGroups.Inactive);
+
                 if (ItemIsReqired(heldItem))
                 {
                     m_foucsModels = new ActionModel[] {
@@ -100,7 +103,13 @@ namespace GameJam
         {
             m_menuInteraction.Hide();
             m_menuInteraction.RequestActionsToLayoutGroup(m_foucsModels, ActionGroups.Inactive);
-        }
 
+            //restore player actions
+            Item heldItem = GameManager.Player.HeldItem;
+            if (heldItem != null)
+            {
+                m_menuInteraction.RequestActionsToLayoutGroup(heldItem.GrabActionModels, ActionGroups.Primary);
+            }
+        }
     }
 }

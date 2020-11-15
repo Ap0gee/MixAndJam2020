@@ -18,7 +18,7 @@ namespace GameJam {
         [SerializeField]
         private List<ActionModel> m_FocusActionModels = new List<ActionModel>();
 
-        protected virtual ActionModel[] FocusActionModels
+        public virtual ActionModel[] FocusActionModels
         {
             get { return m_FocusActionModels.ToArray(); }
         }

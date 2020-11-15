@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9605201
 RectTransform:
   m_ObjectHideFlags: 0
@@ -212,16 +212,16 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &39600489
-Transform:
+  m_IsActive: 1
+--- !u!224 &39600489
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39600488}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.5584843, y: 3.5584843, z: 3.5584843}
   m_Children:
   - {fileID: 1411071410}
@@ -231,6 +231,11 @@ Transform:
   m_Father: {fileID: 234238275}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -39, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &39600490
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -256,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_credits: {fileID: 1042976681}
-  m_rollSpeed: 0
+  m_rollSpeed: 30
 --- !u!1 &169238542
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +371,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -11.248901, y: -240}
+  m_AnchoredPosition: {x: 36, y: -291}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!82 &285916559
@@ -1103,8 +1108,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1042976681}
   - component: {fileID: 1042976683}
-  - component: {fileID: 1042976682}
   - component: {fileID: 1042976684}
+  - component: {fileID: 1042976685}
+  - component: {fileID: 1042976682}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -1121,63 +1127,40 @@ RectTransform:
   m_GameObject: {fileID: 1042976680}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 39600489}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25.65271, y: -205}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_AnchoredPosition: {x: -119, y: 26}
+  m_SizeDelta: {x: 1000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1042976682
-MonoBehaviour:
+--- !u!223 &1042976682
+Canvas:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042976680}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 79cb662f273c9614684a8b9febeeb553, type: 3}
-    m_FontSize: 22
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 155
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: "Zolee - grunge textures https://www.onlygfx.com/author/zolee/\r\nSocapex
-    - https://opengameart.org/content/dark-ambiance'\r\n music by Joe Baxter-Webb
-    (BossLevel VGM) mad scientist.mp3 - https://opengameart.org/content/the-mad-scientist\r\nMunchy2007
-    https://opengameart.org/content/button-sfx-pack-iii-assortment-ot-hi-tech\r\nskull
-    icon Icons made by <a href=\"undefined\" title=\"undefined\">undefined</a> from
-    <a href=\"https://www.flaticon.com/\" title=\"Flaticon\"> www.flaticon.com</a>\r\nArrow
-    Icons <div>Icon made from <a href=\"http://www.onlinewebfonts.com/icon\">Icon
-    Fonts</a> is licensed by CC BY 3.0</div>\r\narrow Icons Icons made by <a href=\"https://www.flaticon.com/authors/google\"
-    title=\"Google\">Google</a> from <a href=\"https://www.flaticon.com/\" title=\"Flaticon\">
-    www.flaticon.com</a>\r\nplate icon <div>Icons made by <a href=\"https://www.flaticon.com/authors/freepik\"
-    title=\"Freepik\">Freepik</a> from <a href=\"https://www.flaticon.com/\" title=\"Flaticon\">www.flaticon.com</a></div>\r\nEvil
-    Laugh: Mike Koenig http://soundbible.com/1704-Evil-Laughs.html\r\n"
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!222 &1042976683
 CanvasRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1198,6 +1181,49 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &1042976685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042976680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 79cb662f273c9614684a8b9febeeb553, type: 3}
+    m_FontSize: 39
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 230
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: "Created By:\nSid Shovan\nKyle Shovan\n\nSpecial Thanks:\nZolee\n grunge
+    textures https://www.onlygfx.com/author/zolee/\r\nSocapex\nhttps://opengameart.org/content/dark-ambiance'\r\nJoe
+    Baxter\nWebb (BossLevel VGM) mad scientist.mp3 - https://opengameart.org/content/the-mad-scientist\r\nMunchy2007\nhttps://opengameart.org/content/button-sfx-pack-iii-assortment-ot-hi-tech\r\nskull
+    icon Icons made by <a href=\"undefined\" title=\"undefined\">undefined</a> from
+    <a href=\"https://www.flaticon.com/\" title=\"Flaticon\"> www.flaticon.com</a>\r\nArrow
+    Icons <div>Icon made from <a href=\"http://www.onlinewebfonts.com/icon\">Icon
+    Fonts</a> is licensed by CC BY 3.0</div>\r\narrow Icons Icons made by <a href=\"https://www.flaticon.com/authors/google\"
+    title=\"Google\">Google</a> from <a href=\"https://www.flaticon.com/\" title=\"Flaticon\">
+    www.flaticon.com</a>\r\nplate icon <div>Icons made by <a href=\"https://www.flaticon.com/authors/freepik\"
+    title=\"Freepik\">Freepik</a> from <a href=\"https://www.flaticon.com/\" title=\"Flaticon\">www.flaticon.com</a></div>\r\nEvil
+    Laugh: Mike Koenig http://soundbible.com/1704-Evil-Laughs.html\r\n"
 --- !u!1 &1180391214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,7 +1882,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0

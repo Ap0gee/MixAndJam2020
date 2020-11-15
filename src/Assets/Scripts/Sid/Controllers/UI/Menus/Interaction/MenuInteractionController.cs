@@ -22,7 +22,8 @@ namespace GameJam
         ActionConfirmUse,
         ActionConfirmPickup,
         ActionNoneInvalid,
-        ActionConfirmAdd
+        ActionConfirmAdd,
+        ActionConfirmDrop
     }
 
     [Serializable]

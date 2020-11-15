@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Managers;
+using UnityEngine.Events;
 
 namespace GameJam
 {
@@ -14,6 +15,8 @@ namespace GameJam
         private float m_playerSizeY;
         public float heldItemPos;
 
+        public UnityEvent dropItemEvent = new UnityEvent();
+
         public Item HeldItem
         {
             get { return m_heldItem; }
@@ -22,6 +25,7 @@ namespace GameJam
         private void Awake()
         {
             m_playerSizeY = transform.GetComponent<BoxCollider>().bounds.size.y;
+            dropItemEvent.AddListener(DropItem);
         }
 
         void Start()
@@ -52,14 +56,28 @@ namespace GameJam
             //diable collider
             BoxCollider collider = item.GetComponent<BoxCollider>();
             collider.enabled = false;
-
             //transform object
+            m_heldItem.OnGrabbed();
+        }
+
+        public void DropItem()
+        {
+            if (m_heldItem != null)
+            {
+                BoxCollider collider = m_heldItem.GetComponent<BoxCollider>();
+                float sizeX = m_heldItem.GetComponent<Renderer>().bounds.size.x;
+                m_heldItem.transform.position = new Vector3(transform.position.x + sizeX, m_heldItem.YOrigin, transform.position.z);
+                collider.enabled = true;
+                m_heldItem.OnDropped();
+                m_heldItem = null;
+            }
         }
 
         public void DestroyHeldItem()
         {
             if (m_heldItem)
             {
+                m_heldItem.OnDestroyed();
                 Destroy(m_heldItem);
                 m_heldItem = null;
             }
