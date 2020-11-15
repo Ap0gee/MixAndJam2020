@@ -8,7 +8,23 @@ namespace GameJam.Managers {
 
     public class SceneStateManager : MonoBehaviour
     {
-        public static SceneStateManager instance;
+        private static SceneStateManager m_instance;
+
+        public static SceneStateManager Instance
+        {
+            get {
+                if (m_instance == null)
+                {
+                    //ugh, this is bad
+                    m_instance =  GameObject.Find("Managers").GetComponent<SceneStateManager>();
+                    return m_instance;
+                }
+                else
+                {
+                    return m_instance;
+                }
+            }
+        }
 
         [SerializeField]
         private string m_nextScene;
@@ -26,49 +42,49 @@ namespace GameJam.Managers {
 
         private static bool Switching
         {
-            get { return instance.m_switching; }
-            set { instance.m_switching = value; }
+            get { return Instance.m_switching; }
+            set { Instance.m_switching = value; }
         }
 
         public static bool IsDoneLoading
         {
-            get { return instance.m_taskSceneLoad.isDone; }
+            get { return Instance.m_taskSceneLoad.isDone; }
         }
 
         public static bool IsDoneUnloading
         {
-            get { return instance.m_taskResourceUnload.isDone; }
+            get { return Instance.m_taskResourceUnload.isDone; }
         }
 
         private static void LoadNextScene()
         {
-            instance.m_taskSceneLoad = SceneManager.LoadSceneAsync(instance.m_nextScene);
+            Instance.m_taskSceneLoad = SceneManager.LoadSceneAsync(Instance.m_nextScene);
         }
 
         private static void UnloadUnusedAssets()
         {
-            instance.m_taskResourceUnload = Resources.UnloadUnusedAssets();
+            Instance.m_taskResourceUnload = Resources.UnloadUnusedAssets();
         }
 
         private static bool ReadyToSwitch
         {
-            get { return instance.m_nextScene != instance.m_currentScene && instance.m_nextScene != null; }
+            get { return Instance.m_nextScene != Instance.m_currentScene && Instance.m_nextScene != null; }
         }
 
         public static void SwitchScene(string scene)
         {
-            if (instance.m_currentScene != scene)
+            if (Instance.m_currentScene != scene)
             {
-                instance.m_nextScene = scene;
+                Instance.m_nextScene = scene;
             }   
         }
 
         public static void ReloadScene()
         { 
-            if (instance.m_currentScene != null)
+            if (Instance.m_currentScene != null)
             {
-                instance.m_nextScene = instance.m_currentScene;
-                instance.m_currentScene += "#";
+                Instance.m_nextScene = Instance.m_currentScene;
+                Instance.m_currentScene += "#";
             }   
         }
 
@@ -76,11 +92,11 @@ namespace GameJam.Managers {
         {
             DontDestroyOnLoad(gameObject);
 
-            if (instance == null)
+            if (m_instance == null)
             {
-                instance = this;
+                m_instance = this;
             }
-            else if (instance != this)
+            else if (m_instance != this)
             {
                 Destroy(this);
             }  
@@ -88,15 +104,15 @@ namespace GameJam.Managers {
 
         void OnDestroy()
         {
-            if (instance != null)
+            if (m_instance != null)
             {
-                instance = null;
+                m_instance = null;
             }
         }
 
         private void Update()
         {
-            if (instance)
+            if (Instance)
             {
                 if (ReadyToSwitch && !Switching)
                 {
@@ -107,14 +123,14 @@ namespace GameJam.Managers {
 
                 if (Switching)
                 {
-                    if (!instance.m_taskSceneLoad.isDone)
+                    if (!Instance.m_taskSceneLoad.isDone)
                     {
                         //show loading screen
                     }
                     else
                     {
                         //hide loading screen
-                        instance.m_currentScene = instance.m_nextScene;
+                        Instance.m_currentScene = Instance.m_nextScene;
                         Switching = false;
                     }
                 }

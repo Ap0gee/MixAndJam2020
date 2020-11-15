@@ -14,6 +14,15 @@ namespace GameJam
         private AudioSource m_audioSource;
 
         [SerializeField]
+        private CanvasGroup m_title;
+
+        [SerializeField]
+        private CanvasGroup m_credits;
+
+        [SerializeField]
+        private CanvasGroup m_settings;
+
+        [SerializeField]
         private float m_greetingTime = 1.5f;
 
         private IEnumerator GoodEveningSir()
@@ -26,6 +35,30 @@ namespace GameJam
         public void PlayGame()
         {
             StartCoroutine(GoodEveningSir());
+        }
+
+        public void ShowSettings()
+        {
+            m_title.gameObject.SetActive(false);
+            m_settings.gameObject.SetActive(true);
+        }
+
+        public void HideSettings()
+        {
+            m_settings.gameObject.SetActive(false);
+            m_title.gameObject.SetActive(true);
+        }
+
+        public void ShowCredits()
+        {
+            m_title.gameObject.SetActive(false);
+            m_credits.gameObject.SetActive(true);
+        }
+
+        public void HideCredits()
+        {
+            m_credits.gameObject.SetActive(false);
+            m_title.gameObject.SetActive(true);
         }
     }
 }
