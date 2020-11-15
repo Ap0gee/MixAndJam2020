@@ -21,7 +21,7 @@ namespace GameJam
         public List<Requirements> requirements;
     }
 
-    public class Machine : Interactable, IUseable
+    public class Machine : Interactable
     {
         private UnityEvent AddItemEvent = new UnityEvent() { };
  
@@ -41,12 +41,6 @@ namespace GameJam
         {
             base.Awake();
             m_selectedRecipe = m_recipes[0];
-            AddItemEvent.AddListener(AddHeldItem);
-        }
-
-        public void AddHeldItem()
-        {
-            
         }
 
         public bool ItemIsReqired(Item item)
@@ -62,12 +56,9 @@ namespace GameJam
             return false;
         }
 
-        public virtual void Use()
-        {
-            Debug.Log("using machine.");
+        public virtual void UnUse() {
+            //show menu
         }
-
-        public virtual void UnUse() { }
 
         public override void Focus()
         {

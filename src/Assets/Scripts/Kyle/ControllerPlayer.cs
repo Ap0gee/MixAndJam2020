@@ -50,7 +50,6 @@ namespace GameJam
                     );
                 transform.rotation = Quaternion.LookRotation(moveDirection);
             }
-           
         }
 
         public void PickupItem(Item item)
@@ -72,14 +71,12 @@ namespace GameJam
             {
                 MeshCollider collider = m_heldItem.GetComponent<MeshCollider>();
                 Rigidbody rb = m_heldItem.GetComponent<Rigidbody>();
+                float sizeX = m_heldItem.GetComponent<Renderer>().bounds.size.x;
                 collider.enabled = true;
                 rb.isKinematic = false;
-                float sizeX = m_heldItem.GetComponent<Renderer>().bounds.size.x;
-                rb.AddForce(transform.forward * m_throwForce);
-               
-
                 m_heldItem.OnDropped();
-                
+                m_heldItem = null;
+                rb.AddForce(transform.forward * m_throwForce);
             }
         }
 
@@ -95,7 +92,7 @@ namespace GameJam
 
         private void Update()
         {
-            if (m_heldItem && !throwing)
+            if (m_heldItem)
             {
                 float itemSizeY = m_heldItem.GetComponent<Renderer>().bounds.size.y;
                 m_heldItem.transform.position = new Vector3(transform.position.x, transform.position.y + heldItemPos + m_heldItem.heldPosOffset, transform.position.z);
