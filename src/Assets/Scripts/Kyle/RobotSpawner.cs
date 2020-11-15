@@ -30,6 +30,7 @@ public class RobotSpawner : MonoBehaviour
     public float TotalCounter = 0;
     public float RecheckSpawnableAfter = 10;
     public float RecheckCounter = 0;
+    public bool IsEnabled = true;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,11 @@ public class RobotSpawner : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!this.IsEnabled)
+        {
+            return;
+        }
+
         if (Time.fixedTime >= this.RecheckCounter + this.RecheckSpawnableAfter)
         {
             this.RecheckSpawnable();

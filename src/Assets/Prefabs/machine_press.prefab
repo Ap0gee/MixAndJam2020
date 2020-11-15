@@ -77,7 +77,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveRecipe:
-    Produces: {fileID: 0}
+    Produces: {fileID: 5567922499162008861, guid: b5b648f3f54189f469e51c0a489e84a2,
+      type: 3}
     receipeItems:
     - Item: 3
       Quantity: 1

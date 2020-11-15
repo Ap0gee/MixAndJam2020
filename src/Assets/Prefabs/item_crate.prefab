@@ -72,11 +72,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4483123773307697337}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83292ecfeb26a0c4e8c85dc6cfb06af5, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c86c4ca9e8d2fa488b189d62683e2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ItemSize: 1
   ItemType: 7
+  RobotToSpawn: {fileID: 0}
 --- !u!1001 &4483123772704450339
 PrefabInstance:
   m_ObjectHideFlags: 0

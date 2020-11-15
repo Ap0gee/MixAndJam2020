@@ -80,12 +80,13 @@ namespace GameJam
             Debug.Log("Throwing");
             this.pickedUpObject.transform.parent = null;
 
+            Rigidbody thisrb = this.GetComponent<Rigidbody>();
             Vector3 fwd = this.transform.TransformDirection(Vector3.forward);
 
             Vector3 ThrowDirection = new Vector3(
-                fwd.x * ThrowForce,
+                fwd.x * ThrowForce + thisrb.velocity.x,
                 1f,
-                fwd.z * ThrowForce
+                fwd.z * ThrowForce + thisrb.velocity.z
             );
 
             Rigidbody rb = this.pickedUpObject.GetComponent<Rigidbody>();

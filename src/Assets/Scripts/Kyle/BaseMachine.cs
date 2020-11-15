@@ -30,13 +30,13 @@ public class BaseMachine : MonoBehaviour
     }
     
 
-    public void SetReceipe(Receipe receipe)
+    public virtual void SetReceipe(Receipe receipe)
     {
         this.ActiveRecipe = receipe;
         this.ResetCounter();
     }
 
-    public void ResetCounter()
+    public virtual void ResetCounter()
     {
         Debug.Log("Resetting Counter");
         foreach(ReceipeItem item in this.ActiveRecipe.receipeItems)
@@ -82,18 +82,23 @@ public class BaseMachine : MonoBehaviour
         }
     }
 
-    private void SpawnItem()
+    protected virtual void SpawnItem()
     {
         GameObject spawnedItem = Instantiate(this.ActiveRecipe.Produces);
         spawnedItem.transform.position = this.SpawnLocation.position;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void DestroyItem(GameObject go)
+    {
+        Destroy(go);
+    }
+
+    protected void OnCollisionEnter(Collision collision)
     {
         if (!this.IsEnabled)
         {
             return;
-        }
+        } 
 
         GameObject go = collision.gameObject;
         // This is an item
@@ -106,8 +111,7 @@ public class BaseMachine : MonoBehaviour
                 if (receipe.Item == item.ItemType)
                 {
                     this.Counter[item.ItemType] += 1;
-                    
-                    Destroy(go);
+                    this.DestroyItem(go);
                 }
             }
         }
