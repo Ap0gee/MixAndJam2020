@@ -57,10 +57,6 @@ namespace GameJam
             m_held = true;
 
             ControllerPlayer player = GameManager.Player;
-            m_grabModels = new ActionModel[] {
-                new ActionModel { actionType = ActionTypes.ActionConfirmDrop, callbackEvent=player.dropItemEvent }
-            };
-
             m_menuInteraction.RequestActionsToLayoutGroup(m_grabModels, ActionGroups.Primary);
         }
 

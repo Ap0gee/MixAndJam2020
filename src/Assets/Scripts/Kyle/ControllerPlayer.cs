@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameJam.Managers;
 using UnityEngine.Events;
 
 namespace GameJam
@@ -9,93 +8,120 @@ namespace GameJam
     public class ControllerPlayer : MonoBehaviour
     {
         public float PlayerSpeed = 1;
-        private float m_rotSpeed = 1000f;
-        protected Rigidbody rigidbody = null;
-        [SerializeField]
-        private float m_throwForce = 500f;
-        private Item m_heldItem;
-        private float m_playerSizeY;
-        public float heldItemPos;
-        public bool throwing = false;
-        public UnityEvent dropItemEvent = new UnityEvent();
+        public Transform RaycastFrom;
+        public float ThrowForce = 5;
 
-        public Item HeldItem
-        {
-            get { return m_heldItem; }
-        }
+        public Transform BigItemAttachment;
+        public Transform SmallItemAttachment;
+
+
+        public GameObject pickedUpObject;
 
         private void Awake()
         {
-            m_playerSizeY = transform.GetComponent<BoxCollider>().bounds.size.y;
-            dropItemEvent.AddListener(DropItem);
         }
 
         void Start()
         {
-            this.rigidbody = this.GetComponent<Rigidbody>();
         }
 
         // Update is called once per frame
-        void FixedUpdate()
+        void Update()
         {
-            float axisVertical = InputManager.GetAxis("Vertical");
-            float axisHorizontal = InputManager.GetAxis("Horizontal");
+            Debug.Log(Input.GetButtonDown("Confirm"));
+            if (Input.GetButtonDown("Confirm"))
+            {
+                if (this.pickedUpObject == null)
+                {
+                    int layerMask = 1 << 15;
+
+                    Vector3 fwd = this.transform.TransformDirection(Vector3.forward);
+
+                    RaycastHit hit;
+                    Debug.DrawRay(this.RaycastFrom.position, fwd * 1f, Color.red);
+
+                    if (Physics.Raycast(this.RaycastFrom.position, fwd, out hit, 1f, layerMask))
+                    {
+                        this.PickUp(hit.collider.gameObject);
+                    }
+
+                } else
+                {
+                    this.Throw();
+                }
+            }
+        }
+
+        private void LateUpdate()
+        {
+            float axisVertical = Input.GetAxisRaw("Vertical");
+            float axisHorizontal = Input.GetAxisRaw("Horizontal");
+
+            if (this.pickedUpObject != null)
+            {
+                this.UpdatePickedUpObject();
+            }
+
             if (axisVertical != 0 || axisHorizontal != 0)
             {
-                Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-                transform.position = new Vector3(
-                        this.transform.position.x + this.PlayerSpeed * axisHorizontal * Time.deltaTime,
-                        this.transform.position.y,
-                        this.transform.position.z + this.PlayerSpeed * axisVertical * Time.deltaTime
-                    );
-                transform.rotation = Quaternion.LookRotation(moveDirection);
+                Vector3 MovePosition = new Vector3(
+                    axisHorizontal,
+                    0f,
+                    axisVertical
+                );
+
+                transform.rotation = Quaternion.LookRotation(MovePosition);
+                transform.Translate(MovePosition * PlayerSpeed * Time.deltaTime, Space.World);
             }
         }
 
-        public void PickupItem(Item item)
+        void Throw()
         {
-            m_heldItem = item;
+            Debug.Log("Throwing");
+            this.pickedUpObject.transform.parent = null;
 
-            //diable collider
-            MeshCollider collider = item.GetComponent<MeshCollider>();
-            Rigidbody rb = item.GetComponent<Rigidbody>();
-            rb.isKinematic = true;
-            collider.enabled = false;
-            //transform object
-            m_heldItem.OnGrabbed();
+            Vector3 fwd = this.transform.TransformDirection(Vector3.forward);
+
+            Vector3 ThrowDirection = new Vector3(
+                fwd.x * ThrowForce,
+                1f,
+                fwd.z * ThrowForce
+            );
+
+            Rigidbody rb = this.pickedUpObject.GetComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+            rb.velocity = ThrowDirection;
+            this.pickedUpObject = null;
+
         }
 
-        public void DropItem()
+        void PickUp(GameObject go)
         {
-            if (m_heldItem != null)
+            this.pickedUpObject = go;
+            this.pickedUpObject.transform.parent = this.transform;
+        }
+
+        void UpdatePickedUpObject()
+        {
+            ItemScript itemScript = this.pickedUpObject.GetComponent<ItemScript>();
+
+
+            if (itemScript.ItemSize == ItemSize.Big)
             {
-                MeshCollider collider = m_heldItem.GetComponent<MeshCollider>();
-                Rigidbody rb = m_heldItem.GetComponent<Rigidbody>();
-                float sizeX = m_heldItem.GetComponent<Renderer>().bounds.size.x;
-                collider.enabled = true;
-                rb.isKinematic = false;
-                m_heldItem.OnDropped();
-                m_heldItem = null;
-                rb.AddForce(transform.forward * m_throwForce);
+                this.pickedUpObject.transform.position = this.BigItemAttachment.position;
+            }
+            else
+            {
+                this.pickedUpObject.transform.position = this.SmallItemAttachment.position;
             }
         }
-
-        public void DestroyHeldItem()
+        private void OnCollisionEnter(Collision collision)
         {
-            if (m_heldItem)
+            //Stop moving when we hit the ground
+            if (collision.gameObject.layer == 16)
             {
-                m_heldItem.OnDestroyed();
-                Destroy(m_heldItem);
-                m_heldItem = null;
-            }
-        }
-
-        private void Update()
-        {
-            if (m_heldItem)
-            {
-                float itemSizeY = m_heldItem.GetComponent<Renderer>().bounds.size.y;
-                m_heldItem.transform.position = new Vector3(transform.position.x, transform.position.y + heldItemPos + m_heldItem.heldPosOffset, transform.position.z);
+                //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
             }
         }
     }

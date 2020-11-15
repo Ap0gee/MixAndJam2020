@@ -83,7 +83,6 @@ namespace GameJam
 
         public void Update()
         {
-            Debug.Log(InputManager.GetButton(CallbackKey));
             if (m_listenForInput)
             {
                 if (InputManager.GetButton(CallbackKey)) {

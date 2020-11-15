@@ -46,8 +46,6 @@ namespace GameJam
             }
 
             m_healthBar.fillAmount = 1 / m_maxHealth * m_health;
-
-            Debug.Log(Health);
         }
     }
 }

@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8763384630730989372}
   - component: {fileID: 2007211533945793288}
   - component: {fileID: 4125832010445389534}
-  m_Layer: 0
+  - component: {fileID: 1486930774}
+  m_Layer: 15
   m_Name: item_gear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,13 +42,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8763384630730989373}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 25
+  m_Drag: 0.05
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &4125832010445389534
 BoxCollider:
@@ -56,12 +57,26 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8763384630730989373}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f71592fd1f0459f4ea5eaabfdcb623ea, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.06, y: 0.38, z: 0.9}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.06, y: 0.39, z: 0.9}
+  m_Center: {x: 0, y: 0.22, z: 0}
+--- !u!114 &1486930774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8763384630730989373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83292ecfeb26a0c4e8c85dc6cfb06af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSize: 0
+  ItemType: 1
 --- !u!1001 &8763384632057394843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77,7 +92,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 318334d858ae6b346b57e89a2ffc1a7c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 318334d858ae6b346b57e89a2ffc1a7c,
         type: 3}
@@ -138,6 +153,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 318334d858ae6b346b57e89a2ffc1a7c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 318334d858ae6b346b57e89a2ffc1a7c, type: 3}

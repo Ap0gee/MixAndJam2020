@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3892045565623569706}
   - component: {fileID: 3323039852608660913}
   - component: {fileID: 1855366157405671434}
+  - component: {fileID: 7327529413638610685}
   m_Layer: 11
   m_Name: machine_mill
   m_TagString: Untagged
@@ -30,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6827248543305484211}
+  - {fileID: 194750570385329585}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -62,6 +64,56 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.98, y: 3.23, z: 2.12}
   m_Center: {x: 0, y: 1.36, z: 0}
+--- !u!114 &7327529413638610685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215137918748243167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a613b7f53151ce44b8df916c0248432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveRecipe:
+    Produces: {fileID: 0}
+    receipeItems:
+    - Item: 3
+      Quantity: 1
+  SpawnLocation: {fileID: 194750570385329585}
+  ThrowForce: 0
+  IsEnabled: 1
+--- !u!1 &3387481413697707206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 194750570385329585}
+  m_Layer: 0
+  m_Name: SpawnLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &194750570385329585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387481413697707206}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1.3599999, z: -1.946}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3892045565623569706}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1001 &6428320148464836696
 PrefabInstance:
   m_ObjectHideFlags: 0

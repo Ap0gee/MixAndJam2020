@@ -2,28 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiningMachine : MonoBehaviour
+public class MachineMining : MonoBehaviour
 {
     public GameObject IngotPrefab;
     public float SpawnTimer = 15;
     public Transform SpawnLocation;
     public Vector3 ThrowDirection = new Vector3(-145, 1, 0);
 
-    private float Counter = 0;
+    private float LastIngot;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        LastIngot = Time.fixedTime;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Debug.Log(Counter);
-
-
-        if (Counter >= SpawnTimer)
+        if (Time.fixedTime >= SpawnTimer + LastIngot)
         {
             GameObject newIngot = GameObject.Instantiate(IngotPrefab);
             newIngot.transform.position = SpawnLocation.position;
@@ -32,10 +29,7 @@ public class MiningMachine : MonoBehaviour
 
             ingotRb.AddForce(ThrowDirection);
 
-            Counter = 0;
+            LastIngot = Time.fixedTime;
         }
-
-        Counter += Time.deltaTime;
-        
     }
 }
