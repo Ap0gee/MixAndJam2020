@@ -27,6 +27,7 @@ namespace GameJam
         public enum ActionKeys
         {
             Confirm,
+            None,
             Action1,
             Action2,
             Action3
@@ -49,8 +50,8 @@ namespace GameJam
 
         public float SlotFill
         {
-            get { return m_slot.fillAmount; }
-            set { m_slot.fillAmount = value >= 1f ? 1f : value; }
+            get { if (m_slot != null) { return m_slot.fillAmount; } else { return 0f; } }
+            set { if (m_slot != null) { m_slot.fillAmount = value >= 1f ? 1f : value; }; }
         }
 
         public UnityEvent CallbackEvent

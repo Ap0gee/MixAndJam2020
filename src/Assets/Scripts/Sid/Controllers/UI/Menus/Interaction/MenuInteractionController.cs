@@ -20,7 +20,10 @@ namespace GameJam
     public enum ActionTypes
     {
         ActionConfirmUse,
-        ActionConfirmPickup
+        ActionConfirmPickup,
+        ActionNoneInvalid,
+        ActionConfirmAdd,
+        ActionConfirmDrop
     }
 
     [Serializable]
