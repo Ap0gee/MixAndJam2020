@@ -7,6 +7,5 @@ namespace GameJam
     public interface IHoldable
     {
         void Pickup();
-        void UnPickup();
     }
 }
